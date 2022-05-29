@@ -1,5 +1,6 @@
 type Task = Box<dyn Fn() -> Result<(), String>>;
 
+#[derive(Default)]
 pub struct ProgressQueue {
     pub queue: Vec<Task>,
     pub max_length: usize,
@@ -7,10 +8,6 @@ pub struct ProgressQueue {
 }
 
 impl ProgressQueue {
-    pub fn new() -> Self {
-        Self { queue: Vec::new(), max_length: 0, tasks_done: 0}
-    }
-
     pub fn enqueue(&mut self, f: Task) {
         self.max_length += 1;
         self.queue.push(f);
@@ -30,3 +27,4 @@ impl ProgressQueue {
         })
     }
 }
+
