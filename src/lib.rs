@@ -14,7 +14,6 @@ impl ProgressQueue {
     pub fn enqueue(&mut self, f: Task) {
         self.max_length += 1;
         self.queue.push(f);
-        println!("{}, {}", self.tasks_done, self.max_length);
     }
 
     fn dequeue(&mut self) -> Option<Task> {
@@ -27,7 +26,6 @@ impl ProgressQueue {
     pub fn execute(&mut self) -> Option<Result<(), String>> {
         self.dequeue().map(|dequeued| {
             self.tasks_done += 1;
-            println!("{}, {}", self.tasks_done, self.max_length);
             dequeued()
         })
     }
